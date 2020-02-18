@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/homework.main"/>
+	<classpathentry kind="src" path="/homework.main/java"/>
+	<classpathentry kind="src" path="/homework.main/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Gradle: org.projectlombok:lombok:1.18.12"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
