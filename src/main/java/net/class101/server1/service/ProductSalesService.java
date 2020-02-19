@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import net.class101.server1.Main;
 import net.class101.server1.code.ProjectCode;
+import net.class101.server1.exception.SoldOutException;
 import net.class101.server1.product.Product;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class ProductSalesService {
             this.errMsg = errMsg;
             this.eventTime = eventTime;
             this.deliveryFee = 0;
-            if ((this.orderCnt * this.productPrice)<50000){
+            if ((this.orderCnt * this.productPrice) < 50000) {
                 this.deliveryFee = 5000;
             }
         }
@@ -71,7 +72,16 @@ public class ProductSalesService {
                                 .build());
                     } else {
                         // 판매 실패
-                        System.out.println("Fail to sale (order amount over) -> productNumber: " + product.getProductNumber());
+                        try {
+                            throw new SoldOutException("Fail to sale (order amount over) -> productNumber: " + product.getProductNumber());
+                        } catch (SoldOutException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         return;
                     }
                 }
