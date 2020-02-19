@@ -2,10 +2,10 @@ package net.class101.server1.service;
 
 import lombok.Builder;
 import lombok.Getter;
-import net.class101.server1.Main;
 import net.class101.server1.code.ProjectCode;
 import net.class101.server1.exception.SoldOutException;
 import net.class101.server1.product.Product;
+import net.class101.server1.thread.ProjectThread;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,13 +48,13 @@ public class ProductSalesService {
 
     List<SalesHistory> salesHistoryList = new ArrayList<>();
 
-    public void order(List<Main.OrderRecord> orderRecordList) {
+    public void order(List<ProjectThread.OrderRecord> orderRecordList) {
         List<SalesHistory> transactionalSalesHistoryList = new ArrayList<>();
         if (!isValidProductNumber(orderRecordList)) {
             System.out.println("Fail to sale (wrong product number input)");
             return;
         }
-        for (Main.OrderRecord orderRecord : orderRecordList) {
+        for (ProjectThread.OrderRecord orderRecord : orderRecordList) {
             for (Product product : Product.productList) {
                 if (product.getProductNumber() == orderRecord.getOrderedPrdtNo()) {
                     if (product.getProductStockCount() >= orderRecord.getOrderedPrdtCnt()) {
@@ -93,8 +93,8 @@ public class ProductSalesService {
         salesHistoryList.addAll(transactionalSalesHistoryList);
     }
 
-    private boolean isValidProductNumber(List<Main.OrderRecord> orderRecordList) {
-        List<Integer> orderPrdtNoList = orderRecordList.stream().map(Main.OrderRecord::getOrderedPrdtNo).collect(Collectors.toList());
+    private boolean isValidProductNumber(List<ProjectThread.OrderRecord> orderRecordList) {
+        List<Integer> orderPrdtNoList = orderRecordList.stream().map(ProjectThread.OrderRecord::getOrderedPrdtNo).collect(Collectors.toList());
         for (int orderPrdtNo : orderPrdtNoList) {
             if (!Product.productNumberSet.contains(orderPrdtNo))
                 return false;
