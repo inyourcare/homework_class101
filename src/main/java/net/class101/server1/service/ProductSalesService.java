@@ -9,6 +9,7 @@ import net.class101.server1.product.Product;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductSalesService {
 
@@ -42,26 +43,31 @@ public class ProductSalesService {
 
     public void order(List<Main.OrderRecord> orderRecordList) {
         List<SalesHistory> transactionalSalesHistoryList = new ArrayList<>();
+        if (!isValidProductNumber(orderRecordList)) {
+            System.out.println("Fail to sale (wrong product number input)");
+            return;
+        }
         for (Main.OrderRecord orderRecord : orderRecordList) {
             for (Product product : Product.productList) {
-                if (product.getProductNumber() == orderRecord.getOrderedPrdtNo()
-                        && product.getProductStockCount() >= orderRecord.getOrderedPrdtCnt()) {
-                    // 판매 성공
-                    // 키트일 겨웅 count 차감
-                    if (product.getKind().equals(ProjectCode.ProductKind.Kit.getCode()))
-                        product.setProductStockCount(product.getProductStockCount() - orderRecord.getOrderedPrdtCnt());
+                if (product.getProductNumber() == orderRecord.getOrderedPrdtNo()) {
+                    if (product.getProductStockCount() >= orderRecord.getOrderedPrdtCnt()) {
+                        // 판매 성공
+                        // 키트일 경우 count 차감
+                        if (product.getKind().equals(ProjectCode.ProductKind.Kit.getCode()))
+                            product.setProductStockCount(product.getProductStockCount() - orderRecord.getOrderedPrdtCnt());
 
-                    transactionalSalesHistoryList.add(SalesHistory.builder()
-                            .product(product)
-                            .eventTime(new Date())
-                            .orderCnt(orderRecord.getOrderedPrdtCnt())
-                            .salesState(ProjectCode.SalesState.Success.getCode())
-                            .errMsg(ProjectCode.SalesState.Success.getMsg())
-                            .build());
-                } else {
-                    // 판매 실패
-                    System.out.println("Fail to sale -> productNumber: " + product.getProductNumber());
-                    return;
+                        transactionalSalesHistoryList.add(SalesHistory.builder()
+                                .product(product)
+                                .eventTime(new Date())
+                                .orderCnt(orderRecord.getOrderedPrdtCnt())
+                                .salesState(ProjectCode.SalesState.Success.getCode())
+                                .errMsg(ProjectCode.SalesState.Success.getMsg())
+                                .build());
+                    } else {
+                        // 판매 실패
+                        System.out.println("Fail to sale (order amount over) -> productNumber: " + product.getProductNumber());
+                        return;
+                    }
                 }
             }
         }
@@ -69,6 +75,15 @@ public class ProductSalesService {
         showSaleResult(transactionalSalesHistoryList);
         // 전체 히스토리에 저장
         salesHistoryList.addAll(transactionalSalesHistoryList);
+    }
+
+    private boolean isValidProductNumber(List<Main.OrderRecord> orderRecordList) {
+        List<Integer> orderPrdtNoList = orderRecordList.stream().map(Main.OrderRecord::getOrderedPrdtNo).collect(Collectors.toList());
+        for (int orderPrdtNo : orderPrdtNoList) {
+            if (!Product.productNumberSet.contains(orderPrdtNo))
+                return false;
+        }
+        return true;
     }
 
     private void showSaleResult(List<SalesHistory> transactionalSalesHistoryList) {

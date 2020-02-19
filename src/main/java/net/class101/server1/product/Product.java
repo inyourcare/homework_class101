@@ -4,13 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
 public class Product implements ProductInterface {
 
     public static List<Product> productList = new ArrayList<>();
+    public static Set<Integer> productNumberSet = new HashSet<>();
     int productNumber;
     String productName;
     int productPrice;
@@ -22,6 +25,7 @@ public class Product implements ProductInterface {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productStockCount = productStockCount;
+        productNumberSet.add(productNumber);
     }
 
     @Override

@@ -96,6 +96,8 @@ public class Main {
     }
 
     private static boolean isDigitString(String source) {
+        if (source == null && source.length() == 0)
+            return false;
         for (Character s : source.toCharArray()) {
             if (!Character.isDigit(s))
                 return false;
