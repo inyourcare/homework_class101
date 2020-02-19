@@ -7,21 +7,27 @@ import net.class101.server1.product.Product;
 import net.class101.server1.service.ProductSalesService;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 
 public class ProjectThread extends Thread {
 
     private static ProductSalesService productSalesService = new ProductSalesService();
+    private static Iterator<String> iterator;
+
+    public static void setIterator(Iterator<String> iterator) {
+        ProjectThread.iterator = iterator;
+    }
 
     @Override
     public void run() {
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("입력:(o[order] 주문 , q[quit] 종료) : ");
-            String command = sc.next();
+//            String command = sc.next();
+            String command = iterator.next();
             if (command.toUpperCase().equals(ProjectCode.CommandCode.Order.getCode())) {
-                orderProcess(sc);
+                orderProcess();
             } else if (command.toUpperCase().equals(ProjectCode.CommandCode.Quit.getCode())) {
                 break;
             }
@@ -40,7 +46,8 @@ public class ProjectThread extends Thread {
         }
     }
 
-    private static void orderProcess(Scanner sc) {
+    private static void orderProcess() {
+//        Scanner sc = new Scanner(System.in);
         int input_prdtNo;
         int input_prdtCnt;
         System.out.println("상품번호     상품명                                        판매가격     재고수");
@@ -49,8 +56,9 @@ public class ProjectThread extends Thread {
         List<OrderRecord> orderRecordList = new ArrayList<>();
         while (true) {
             System.out.println("상품번호: ");
-            sc.nextLine(); // 엔터값이 남아있대나...;
-            String command = sc.nextLine();
+//            sc.nextLine(); // 엔터값이 남아있대나...;
+//            String command = sc.nextLine();
+            String command = iterator.next();
             if (command.equals(ProjectCode.CommandCode.SPACE.getCode()))
                 break;
             if (!isDigitString(command))
@@ -58,7 +66,8 @@ public class ProjectThread extends Thread {
             input_prdtNo = Integer.parseInt(command);
 
             System.out.println("수량: ");
-            command = sc.next();
+//            command = sc.next();
+            command = iterator.next();
             if (!isDigitString(command))
                 continue;
             input_prdtCnt = Integer.parseInt(command);

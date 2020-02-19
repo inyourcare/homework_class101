@@ -3,7 +3,10 @@ package net.class101.server1;
 import net.class101.server1.product.ClassProduct;
 import net.class101.server1.product.KitProduct;
 import net.class101.server1.product.Product;
+import net.class101.server1.thread.ProjectThread;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -33,6 +36,8 @@ public class Main {
 
     public static void main(String[] args) {
         productLoad();
-
+        ProjectThread thread = new ProjectThread();
+        ProjectThread.setIterator(new ArrayList<>(Arrays.asList("o", "91008", "3", " ", "q")).iterator());
+        thread.start();
     }
 }
