@@ -32,6 +32,7 @@ public class ProjectThread extends Thread {
                 break;
             }
         }
+        System.out.println("종료되었습니다.");
     }
 
     @Getter
