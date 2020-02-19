@@ -1,10 +1,12 @@
 package net.class101.server1.product;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
 @Getter
 public class Product implements ProductInterface {
 

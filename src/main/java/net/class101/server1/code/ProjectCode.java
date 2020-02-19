@@ -16,13 +16,26 @@ public class ProjectCode {
     }
 
     @Getter
-    public enum CommandCode{
-        Order("O") , Quit("Q") , SPACE(" ");
+    public enum CommandCode {
+        Order("O"), Quit("Q"), SPACE(" ");
 
         String code;
 
-        CommandCode(String code){
+        CommandCode(String code) {
             this.code = code;
+        }
+    }
+
+    @Getter
+    public enum SalesState {
+        Success("S", "Success"), Fail("F", "Fail");
+
+        String code;
+        String msg;
+
+        SalesState(String code, String msg) {
+            this.code = code;
+            this.msg = msg;
         }
     }
 }
