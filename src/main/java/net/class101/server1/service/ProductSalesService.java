@@ -24,6 +24,8 @@ public class ProductSalesService {
         String salesState;
         String errMsg;
         Date eventTime;
+        // 배송료
+        int deliveryFee;
 
         @Builder
         public SalesHistory(Product product, int orderCnt, String salesState, String errMsg, Date eventTime) {
@@ -36,6 +38,10 @@ public class ProductSalesService {
             this.salesState = salesState;
             this.errMsg = errMsg;
             this.eventTime = eventTime;
+            this.deliveryFee = 0;
+            if ((this.orderCnt * this.productPrice)<50000){
+                this.deliveryFee = 5000;
+            }
         }
     }
 
@@ -91,7 +97,8 @@ public class ProductSalesService {
             System.out.println(salesHistory.getProductName() + " - " + salesHistory.getOrderCnt() + "개");
         });
         transactionalSalesHistoryList.stream().forEach(salesHistory -> {
-            System.out.println("주문금액: " + salesHistory.getOrderCnt() * salesHistory.getProductPrice() + "원");
+            int saleTotalPrice = salesHistory.getOrderCnt() * salesHistory.getProductPrice() + salesHistory.getDeliveryFee();
+            System.out.println("주문금액: " + saleTotalPrice + "원");
         });
     }
 }
