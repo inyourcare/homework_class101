@@ -35,8 +35,14 @@ public class ProjectTest {
     @Test
     public void test(){
         productLoad();
+
         ProjectThread thread = new ProjectThread();
-        ProjectThread.setIterator(new ArrayList<>(Arrays.asList("o", "91008", "3", " ", "q")).iterator());
+        thread.setIterator(new ArrayList<>(Arrays.asList("o", "91008", "6", " ", "q")).iterator());
+
+        ProjectThread thread2 = new ProjectThread();
+        thread2.setIterator(new ArrayList<>(Arrays.asList("o", "91008", "6", " ", "q")).iterator());
+
         thread.start();
+        thread2.start();
     }
 }

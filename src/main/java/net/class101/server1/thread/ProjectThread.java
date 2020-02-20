@@ -13,10 +13,10 @@ import java.util.List;
 public class ProjectThread extends Thread {
 
     private static ProductSalesService productSalesService = new ProductSalesService();
-    private static Iterator<String> iterator;
+    private Iterator<String> iterator;
 
-    public static void setIterator(Iterator<String> iterator) {
-        ProjectThread.iterator = iterator;
+    public void setIterator(Iterator<String> iterator) {
+        this.iterator = iterator;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ProjectThread extends Thread {
         }
     }
 
-    private static void orderProcess() {
+    private void orderProcess() {
 //        Scanner sc = new Scanner(System.in);
         int input_prdtNo;
         int input_prdtCnt;
