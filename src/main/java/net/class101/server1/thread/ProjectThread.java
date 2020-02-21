@@ -3,7 +3,6 @@ package net.class101.server1.thread;
 import lombok.Builder;
 import lombok.Getter;
 import net.class101.server1.code.ProjectCode;
-import net.class101.server1.product.Product;
 import net.class101.server1.resource.StaticResources;
 import net.class101.server1.service.ProductSalesService;
 
@@ -33,7 +32,8 @@ public class ProjectThread extends Thread {
                 break;
             }
         }
-        System.out.println("종료되었습니다.");
+        System.out.println(Thread.currentThread().getId() + "]종료되었습니다.");
+        StaticResources.productList.stream().forEach(System.out::println);
     }
 
     @Getter
