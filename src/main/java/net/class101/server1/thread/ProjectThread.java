@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ProjectThread extends Thread {
 
-    private static ProductSalesService productSalesService = new ProductSalesService();
+    private static ProductSalesService productSalesService = ProductSalesService.getInstance();
     private Iterator<String> iterator;
 
     public void setIterator(Iterator<String> iterator) {

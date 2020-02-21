@@ -15,6 +15,19 @@ import java.util.stream.Collectors;
 
 public class ProductSalesService {
 
+    // private static 로 선언.
+    private static ProductSalesService instance = new ProductSalesService();
+
+    // 생성자
+    private ProductSalesService() {
+        System.out.println("call ProductSalesService constructor.");
+    }
+
+    // 조회 method
+    public static ProductSalesService getInstance() {
+        return instance;
+    }
+
     @Getter
     static class SalesHistory {
         int productNumber;

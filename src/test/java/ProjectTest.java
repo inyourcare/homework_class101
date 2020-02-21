@@ -23,7 +23,7 @@ public class ProjectTest {
         thread.setIterator(new ArrayList<>(Arrays.asList("o", "91008", "6", " ", "q")).iterator());
 
         ProjectThread thread2 = new ProjectThread();
-        thread2.setIterator(new ArrayList<>(Arrays.asList("o", "42031", "6", " ", "q")).iterator());
+        thread2.setIterator(new ArrayList<>(Arrays.asList("o", "91008", "6", " ", "q")).iterator());
 
         thread.start();
         thread2.start();
