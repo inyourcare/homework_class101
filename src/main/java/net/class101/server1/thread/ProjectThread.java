@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import net.class101.server1.code.ProjectCode;
 import net.class101.server1.product.Product;
+import net.class101.server1.resource.StaticResources;
 import net.class101.server1.service.ProductSalesService;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class ProjectThread extends Thread {
         int input_prdtNo;
         int input_prdtCnt;
         System.out.println("상품번호     상품명                                        판매가격     재고수");
-        Product.productList.stream().forEach(System.out::println);
+        StaticResources.productList.stream().forEach(System.out::println);
 
         List<OrderRecord> orderRecordList = new ArrayList<>();
         while (true) {

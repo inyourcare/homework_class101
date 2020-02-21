@@ -5,6 +5,7 @@ import lombok.Getter;
 import net.class101.server1.code.ProjectCode;
 import net.class101.server1.exception.SoldOutException;
 import net.class101.server1.product.Product;
+import net.class101.server1.resource.StaticResources;
 import net.class101.server1.thread.ProjectThread;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ProductSalesService {
             return;
         }
         for (ProjectThread.OrderRecord orderRecord : orderRecordList) {
-            for (Product product : Product.productList) {
+            for (Product product : StaticResources.productList) {
                 if (product.getProductNumber() == orderRecord.getOrderedPrdtNo()) {
                     if (product.getProductStockCount() >= orderRecord.getOrderedPrdtCnt()) {
                         // 판매 성공
@@ -96,7 +97,7 @@ public class ProductSalesService {
     private boolean isValidProductNumber(List<ProjectThread.OrderRecord> orderRecordList) {
         List<Integer> orderPrdtNoList = orderRecordList.stream().map(ProjectThread.OrderRecord::getOrderedPrdtNo).collect(Collectors.toList());
         for (int orderPrdtNo : orderPrdtNoList) {
-            if (!Product.productNumberSet.contains(orderPrdtNo))
+            if (!StaticResources.productNumberSet.contains(orderPrdtNo))
                 return false;
         }
         return true;

@@ -12,8 +12,6 @@ import java.util.Set;
 @Getter
 public class Product implements ProductInterface {
 
-    public static List<Product> productList = new ArrayList<>();
-    public static Set<Integer> productNumberSet = new HashSet<>();
     int productNumber;
     String productName;
     int productPrice;
@@ -25,7 +23,6 @@ public class Product implements ProductInterface {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productStockCount = productStockCount;
-        productNumberSet.add(productNumber);
     }
 
     @Override
