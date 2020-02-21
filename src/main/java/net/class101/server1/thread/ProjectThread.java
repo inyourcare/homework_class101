@@ -2,6 +2,7 @@ package net.class101.server1.thread;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import net.class101.server1.code.ProjectCode;
 import net.class101.server1.resource.StaticResources;
 import net.class101.server1.service.ProductSalesService;
@@ -19,9 +20,11 @@ public class ProjectThread extends Thread {
         this.iterator = iterator;
     }
 
+    @SneakyThrows
     @Override
     public void run() {
 //        Scanner sc = new Scanner(System.in);
+
         while (true) {
             System.out.println("입력:(o[order] 주문 , q[quit] 종료) : ");
 //            String command = sc.next();
